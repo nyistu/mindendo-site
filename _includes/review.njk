@@ -1,0 +1,42 @@
+---
+layout: base.njk
+---
+<article>
+  <img src="{{ cover | coverOrDefault }}" alt="{{ title }}" class="review-cover">
+  <h1>{{ title }}</h1>
+  <p class="byline">Írta: {{ author or "Mindendo szerkesztőség" }} · {{ date.toDateString() }}</p>
+
+  <div class="review-box">
+    <span class="platform-badge">{{ platform }}</span>
+    {% if releaseYear %}<span class="year-badge">Megjelenés éve: {{ releaseYear }}</span>{% endif %}
+    <div class="stars">
+      {%- for i in range(0, 5) -%}
+        {%- if i < rating -%}★{%- else -%}☆{%- endif -%}
+      {%- endfor -%}
+      <span style="color:var(--muted); font-size:1rem;"> ({{ rating }}/5)</span>
+    </div>
+
+    <div class="pros-cons">
+      <div class="pros">
+        <h4>Erősségek</h4>
+        <ul>
+          {% for p in pros %}<li>{{ p }}</li>{% endfor %}
+        </ul>
+      </div>
+      <div class="cons">
+        <h4>Gyengeségek</h4>
+        <ul>
+          {% for c in cons %}<li>{{ c }}</li>{% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="verdict">{{ verdict }}</div>
+
+    {{ (rawgQuery or title) | rawgBadge | safe }}
+  </div>
+
+  <div class="article-body">
+    {{ content | safe }}
+  </div>
+</article>

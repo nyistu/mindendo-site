@@ -1,0 +1,26 @@
+---
+layout: base.njk
+title: "Tesztek"
+permalink: /tesztek/
+---
+<h1>Összes teszt</h1>
+
+<div class="filter-bar">
+  <a href="/tesztek/" class="active">Mind</a>
+  {% for p in platforms %}
+  <a href="/platform/{{ p.slug }}/">{{ p.label }}</a>
+  {% endfor %}
+</div>
+
+<div class="card-grid">
+  {% for post in collections.teszt | reverse %}
+  <a href="{{ post.url }}" class="post-card">
+    <img src="{{ post.data.cover | coverOrDefault }}" alt="{{ post.data.title }}">
+    <div class="card-body">
+      <span class="platform-badge">{{ post.data.platform }}</span>
+      <h3>{{ post.data.title }}</h3>
+      <div class="meta">{{ post.data.date.toDateString() }} · {{ post.data.rating }}/5 ★</div>
+    </div>
+  </a>
+  {% endfor %}
+</div>

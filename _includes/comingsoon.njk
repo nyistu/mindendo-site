@@ -1,0 +1,23 @@
+{% set upcomingItems = hamarosan.items | upcoming %}
+{% if upcomingItems.length %}
+<section class="coming-soon">
+  <h2>Hamarosan érkezik</h2>
+  <div class="coming-soon-carousel">
+    <button type="button" class="cs-arrow cs-arrow-prev" data-cs-scroll="-1" aria-label="Előző">‹</button>
+    <div class="coming-soon-grid">
+      {% for item in upcomingItems %}
+      <div class="coming-soon-card">
+        <span class="platform-badge cs-badge">{{ item.platform }}</span>
+        <h4>{{ item.title }}</h4>
+        <div class="cs-date">{{ item.expectedLabel or item.releaseDate }}</div>
+        {% if item.note %}<p class="cs-note">{{ item.note }}</p>{% endif %}
+        {% if item.trailerId %}
+        <button type="button" class="trailer-btn" data-trailer="{{ item.trailerId }}">▶ Trailer</button>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    <button type="button" class="cs-arrow cs-arrow-next" data-cs-scroll="1" aria-label="Következő">›</button>
+  </div>
+</section>
+{% endif %}

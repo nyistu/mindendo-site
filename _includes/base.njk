@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} · Mindendo</title>
+  <meta name="description" content="{{ description or 'Mindendo — Nintendo konzolokra megjelent játékok, kiegészítők tesztjei és rejtett gyöngyszemei.' }}">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <img src="/img/mindendo_logo.svg" alt="Mindendo logó">
+    <nav class="site-nav">
+      <a href="/">Főoldal</a>
+      <a href="/tesztek/">Tesztek</a>
+      <a href="/impresszum/">Impresszum</a>
+      <button type="button" id="random-gem-btn" class="random-gem-btn">🎲 Rejtett gyöngyszem</button>
+    </nav>
+  </header>
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <p>Mindendo — független, nem hivatalos rajongói oldal. Nincs kapcsolatban a Nintendo Co., Ltd.-vel.
+    Részletek: <a href="/impresszum/">Impresszum</a>.</p>
+  </footer>
+
+  <div id="trailer-modal" class="modal-overlay">
+    <div class="modal-box">
+      <button type="button" class="modal-close" aria-label="Bezárás">✕</button>
+      <div class="modal-video" id="modal-video-wrap"></div>
+    </div>
+  </div>
+
+  <script>
+    window.MINDENDO_TESZT_URLS = {{ collections.teszt | postUrls | dump | safe }};
+  </script>
+
+  <script>
+    (function () {
+      var modal = document.getElementById('trailer-modal');
+      var wrap = document.getElementById('modal-video-wrap');
+      var randomBtn = document.getElementById('random-gem-btn');
+
+      if (randomBtn) {
+        randomBtn.addEventListener('click', function () {
+          var urls = window.MINDENDO_TESZT_URLS || [];
+          if (!urls.length) return;
+          var current = window.location.pathname;
+          var pool = urls.filter(function (u) { return u !== current; });
+          if (!pool.length) pool = urls;
+          var pick = pool[Math.floor(Math.random() * pool.length)];
+          window.location.href = pick;
+        });
+      }
+
+      function openModal(videoId) {
+        wrap.innerHTML = '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/' + videoId + '?autoplay=1" title="Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modal.classList.remove('is-open');
+        wrap.innerHTML = '';
+        document.body.style.overflow = '';
+      }
+
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-trailer]');
+        if (btn) {
+          e.preventDefault();
+          openModal(btn.getAttribute('data-trailer'));
+          return;
+        }
+        if (e.target === modal || e.target.closest('.modal-close')) {
+          closeModal();
+          return;
+        }
+        var arrow = e.target.closest('[data-cs-scroll]');
+        if (arrow) {
+          var track = arrow.parentElement.querySelector('.coming-soon-grid');
+          if (track) {
+            var card = track.querySelector('.coming-soon-card');
+            var step = card ? card.getBoundingClientRect().width + 16 : 240;
+            track.scrollBy({ left: step * Number(arrow.getAttribute('data-cs-scroll')), behavior: 'smooth' });
+          }
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeModal();
+      });
+    })();
+  </script>
+</body>
+</html>

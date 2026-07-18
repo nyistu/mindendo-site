@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "title": "007 First Light",
+      "platform": "Nintendo Switch 2",
+      "releaseDate": "2026-08-15",
+      "expectedLabel": "2026 nyár vége",
+      "trailerId": "YGl_TfFqoVM",
+      "note": "Más platformokon már megjelent, a Switch 2-verzió a nyár végére csúszott."
+    },
+    {
+      "title": "Elden Ring: Tarnished Edition",
+      "platform": "Nintendo Switch 2",
+      "releaseDate": "2026-08-28",
+      "expectedLabel": "2026. augusztus 28.",
+      "trailerId": "EO35GLpe7to",
+      "note": "Az alapjáték + Shadow of the Erdtree, Switch 2-exkluzív extrákkal."
+    },
+    {
+      "title": "Fire Emblem: Fortune's Weave",
+      "platform": "Nintendo Switch 2",
+      "releaseDate": "2026-09-17",
+      "expectedLabel": "2026. szeptember 17.",
+      "trailerId": "Rl5_C4sc5zk",
+      "note": "Hivatalosan megerősített megjelenési dátum, kizárólag Switch 2-re."
+    },
+    {
+      "title": "Onimusha: Way of the Sword",
+      "platform": "Nintendo Switch 2",
+      "releaseDate": "2026-09-25",
+      "expectedLabel": "2026. szeptember 25.",
+      "trailerId": "CKhaLqXlUts",
+      "note": "A sorozat első új része 20 év után, Switch 2-n mozgásvezérléssel."
+    },
+    {
+      "title": "Professor Layton and the New World of Steam",
+      "platform": "Nintendo Switch / Switch 2",
+      "releaseDate": "2026-12-24",
+      "expectedLabel": "2026 vége",
+      "trailerId": "wuy2XXuAvyY",
+      "note": "Pontos dátum még nincs bejelentve, csak az év vége körüli időszak."
+    },
+    {
+      "title": "The Duskbloods",
+      "platform": "Nintendo Switch 2",
+      "releaseDate": "2026-12-31",
+      "expectedLabel": "2026 vége (bizonytalan)",
+      "trailerId": "d0ij2uQ87nc",
+      "note": "FromSoftware Switch 2-exkluzív játéka, a dátum még csak becslés."
+    }
+  ]
+}

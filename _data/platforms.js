@@ -1,0 +1,17 @@
+module.exports = [
+  { slug: "color-tv-game", label: "Color TV-Game" },
+  { slug: "famicom-nes", label: "Famicom / NES" },
+  { slug: "snes", label: "Super Famicom / SNES" },
+  { slug: "n64", label: "Nintendo 64" },
+  { slug: "gamecube", label: "GameCube" },
+  { slug: "wii", label: "Wii" },
+  { slug: "wiiu", label: "Wii U" },
+  { slug: "game-and-watch", label: "Game & Watch" },
+  { slug: "gameboy", label: "Game Boy" },
+  { slug: "gbc", label: "Game Boy Color" },
+  { slug: "gba", label: "Game Boy Advance" },
+  { slug: "nds", label: "Nintendo DS" },
+  { slug: "n3ds", label: "Nintendo 3DS" },
+  { slug: "switch", label: "Nintendo Switch" },
+  { slug: "switch2", label: "Nintendo Switch 2" },
+];

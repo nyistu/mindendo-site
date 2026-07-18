@@ -1,0 +1,77 @@
+backend:
+  name: github
+  repo: your-username/mindendo-site
+  branch: main
+
+local_backend: true
+
+media_folder: "img/uploads"
+public_folder: "/img/uploads"
+
+collections:
+  - name: "teszt"
+    label: "Tesztek"
+    label_singular: "Teszt"
+    folder: "content/tesztek"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Cím", name: "title", widget: "string" }
+      - { label: "Szerző", name: "author", widget: "string", default: "Mindendo szerkesztőség" }
+      - { label: "Platform (megjelenő szöveg)", name: "platform", widget: "string", hint: "pl. Nintendo Switch" }
+      - label: "Platform (kategória a szűréshez)"
+        name: "platformSlug"
+        widget: "select"
+        options:
+          - { label: "Color TV-Game", value: "color-tv-game" }
+          - { label: "Famicom / NES", value: "famicom-nes" }
+          - { label: "Super Famicom / SNES", value: "snes" }
+          - { label: "Nintendo 64", value: "n64" }
+          - { label: "GameCube", value: "gamecube" }
+          - { label: "Wii", value: "wii" }
+          - { label: "Wii U", value: "wiiu" }
+          - { label: "Game & Watch", value: "game-and-watch" }
+          - { label: "Game Boy", value: "gameboy" }
+          - { label: "Game Boy Color", value: "gbc" }
+          - { label: "Game Boy Advance", value: "gba" }
+          - { label: "Nintendo DS", value: "nds" }
+          - { label: "Nintendo 3DS", value: "n3ds" }
+          - { label: "Nintendo Switch", value: "switch" }
+          - { label: "Nintendo Switch 2", value: "switch2" }
+      - { label: "Borítókép", name: "cover", widget: "image", required: false, hint: "Ha üresen hagyod, egy alap borító kerül be" }
+      - { label: "Megjelenés éve (a játéké, nem a cikké)", name: "releaseYear", widget: "number", required: false, value_type: "int", min: 1975, max: 2030 }
+      - { label: "RAWG keresési kifejezés (opcionális)", name: "rawgQuery", widget: "string", required: false, hint: "Csak akkor töltsd ki, ha a cím nem egyezik a játék hivatalos angol nevével a RAWG adatbázisban" }
+      - { label: "Értékelés (1-5)", name: "rating", widget: "number", min: 1, max: 5, step: 1 }
+      - label: "Erősségek"
+        name: "pros"
+        widget: "list"
+        field: { label: "Pont", name: "item", widget: "string" }
+      - label: "Gyengeségek"
+        name: "cons"
+        widget: "list"
+        field: { label: "Pont", name: "item", widget: "string" }
+      - { label: "Végszó", name: "verdict", widget: "text" }
+      - { label: "Dátum", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Cikk szövege", name: "body", widget: "markdown" }
+
+  - name: "hamarosan"
+    label: "Hamarosan érkezik doboz"
+    files:
+      - name: "lista"
+        label: "Hamarosan lista"
+        file: "_data/hamarosan.json"
+        fields:
+          - label: "Tételek"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Cím", name: "title", widget: "string" }
+              - { label: "Platform", name: "platform", widget: "string", hint: "pl. Nintendo Switch 2" }
+              - label: "Megjelenés dátuma (ez alapján rendezünk és tűnik el automatikusan)"
+                name: "releaseDate"
+                widget: "date"
+                format: "YYYY-MM-DD"
+                hint: "Ha csak évszak/negyedév ismert, válaszd az adott időszak utolsó napját"
+              - { label: "Megjelenítendő szöveg", name: "expectedLabel", widget: "string", hint: "pl. 2026 tél, vagy TBA — ez jelenik meg a dobozban" }
+              - { label: "YouTube trailer azonosító", name: "trailerId", widget: "string", required: false, hint: "Csak a videó ID-je, pl. a youtube.com/watch?v=EZ_A_RESZ végéből" }
+              - { label: "Megjegyzés", name: "note", widget: "string", required: false }

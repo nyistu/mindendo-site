@@ -1,0 +1,45 @@
+---
+layout: base.njk
+title: "Főoldal"
+permalink: /
+---
+{% set sorted = collections.teszt | reverse %}
+{% set featured = sorted[0] %}
+
+<h1>Legújabb tesztek</h1>
+
+{% if featured %}
+<a href="{{ featured.url }}" class="hero">
+  <img src="{{ featured.data.cover | coverOrDefault }}" alt="{{ featured.data.title }}">
+  <div class="hero-body">
+    <span class="hero-tag">Legfrissebb</span>
+    <span class="platform-badge">{{ featured.data.platform }}</span>
+    <h2>{{ featured.data.title }}</h2>
+    <div class="meta">{{ featured.data.date.toDateString() }}</div>
+    <div class="hero-stars">
+      {%- for i in range(0, 5) -%}
+        {%- if i < featured.data.rating -%}★{%- else -%}☆{%- endif -%}
+      {%- endfor -%}
+      ({{ featured.data.rating }}/5)
+    </div>
+  </div>
+</a>
+{% endif %}
+
+{% include "comingsoon.njk" %}
+
+<h2 class="section-heading">Több teszt</h2>
+<div class="card-grid">
+  {% for post in sorted %}
+    {% if not loop.first %}
+    <a href="{{ post.url }}" class="post-card">
+      <img src="{{ post.data.cover | coverOrDefault }}" alt="{{ post.data.title }}">
+      <div class="card-body">
+        <span class="platform-badge">{{ post.data.platform }}</span>
+        <h3>{{ post.data.title }}</h3>
+        <div class="meta">{{ post.data.date.toDateString() }} · {{ post.data.rating }}/5 ★</div>
+      </div>
+    </a>
+    {% endif %}
+  {% endfor %}
+</div>
