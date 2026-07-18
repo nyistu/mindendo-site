@@ -1,9 +1,14 @@
 backend:
   name: github
-  repo: your-username/mindendo-site
+  repo: ide-jon-a-github-felhasznalonev/mindendo-site
   branch: main
+  base_url: https://ide-jon-a-worker-url.workers.dev
+  # base_url = az oauth-proxy/ mappában lévő Cloudflare Worker deploy után kapott URL
+  # (részletek: oauth-proxy/README.md)
 
 local_backend: true
+# ^ localhoston futtatva (npm run start) ez felülbírálja a fenti github backendet,
+# és marad az egyszerű, bejelentkezés nélküli helyi szerkesztés.
 
 media_folder: "img/uploads"
 public_folder: "/img/uploads"
