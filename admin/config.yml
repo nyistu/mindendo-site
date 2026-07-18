@@ -80,3 +80,12 @@ collections:
               - { label: "Megjelenítendő szöveg", name: "expectedLabel", widget: "string", hint: "pl. 2026 tél, vagy TBA — ez jelenik meg a dobozban" }
               - { label: "YouTube trailer azonosító", name: "trailerId", widget: "string", required: false, hint: "Csak a videó ID-je, pl. a youtube.com/watch?v=EZ_A_RESZ végéből" }
               - { label: "Megjegyzés", name: "note", widget: "string", required: false }
+
+  - name: "beallitasok"
+    label: "Weboldal beállítások"
+    files:
+      - name: "site"
+        label: "Általános beállítások"
+        file: "_data/site.json"
+        fields:
+          - { label: "Weboldal logó", name: "logo", widget: "image", hint: "A fejlécben megjelenő logó cseréje" }

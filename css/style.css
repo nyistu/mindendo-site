@@ -220,7 +220,7 @@ footer.site-footer {
   transform: translateY(-3px);
   box-shadow: 0 12px 30px rgba(0,0,0,0.35);
 }
-.hero img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 220px; }
+.hero img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 220px; max-height: 320px; }
 .hero-body { padding: 1.6rem 1.8rem; display: flex; flex-direction: column; justify-content: center; }
 .hero-tag {
   display: inline-block;
@@ -287,7 +287,7 @@ footer.site-footer {
 }
 
 /* ---- Review article page ---- */
-.review-cover { width: 100%; border-radius: 12px; margin-bottom: 1rem; }
+.review-cover { width: 100%; height: 320px; object-fit: cover; border-radius: 12px; margin-bottom: 1rem; }
 
 .rawg-badge {
   display: block;
@@ -328,7 +328,8 @@ footer.site-footer {
 
 @media (max-width: 700px) {
   .hero { grid-template-columns: 1fr; }
-  .hero img { min-height: 160px; }
+  .hero img { min-height: 160px; max-height: 220px; }
+  .review-cover { height: 200px; }
   .pros-cons { grid-template-columns: 1fr; }
 }
 

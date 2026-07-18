@@ -20,7 +20,12 @@ bejelentkezni, ahelyett hogy bárki jelszó nélkül szerkeszthetné a tartalmat
    npx wrangler deploy
    npx wrangler secret put GITHUB_OAUTH_ID
    npx wrangler secret put GITHUB_OAUTH_SECRET
+   npx wrangler secret put ALLOWED_ORIGINS
    ```
+   Az `ALLOWED_ORIGINS`-hoz add meg vesszővel elválasztva azokat a domaineket,
+   ahonnan az admin felület futni fog (pl. `https://mindendo.hu,https://mindendo-site.pages.dev`)
+   — ez véd az ellen, hogy a bejelentkezés után kapott token bárhova elküldhető legyen.
+
    A `wrangler deploy` kiírja a Worker végleges URL-jét (pl. `https://mindendo-decap-oauth.valaki.workers.dev`).
 
 3. **admin/config.yml frissítése** a saját GitHub felhasználóneveddel/repóddal
