@@ -23,6 +23,7 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
+      - { label: "Piszkozat (nem publikus)", name: "draft", widget: "boolean", default: false, hint: "Ha be van kapcsolva, a cikk nem jelenik meg az élő oldalon (sem listákban, sem közvetlen linken) - csak itt, a szerkesztőben látszik. Egy már publikált cikket is visszatehetsz vele piszkozatba." }
       - { label: "Cím", name: "title", widget: "string" }
       - { label: "Szerző", name: "author", widget: "string", default: "Mindendo szerkesztőség" }
       - { label: "Platform (megjelenő szöveg)", name: "platform", widget: "string", hint: "pl. Nintendo Switch" }

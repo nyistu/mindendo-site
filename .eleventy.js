@@ -11,6 +11,15 @@ module.exports = function (eleventyConfig) {
     return arr || [];
   });
 
+  // A "teszt" tag-gel automatikusan létrejövő kollekciót felülírjuk, hogy a
+  // piszkozatban (draft: true) lévő cikkek sehol ne jelenjenek meg a publikus
+  // oldalon (listák, archívum, legjobbak, keresés, stb.) - a saját, egyedi
+  // oldaluk generálását külön a content/tesztek/tesztek.11tydata.js
+  // eleventyComputed.permalink-je tiltja le.
+  eleventyConfig.addCollection("teszt", function (collectionApi) {
+    return collectionApi.getFilteredByTag("teszt").filter((item) => !item.data.draft);
+  });
+
   eleventyConfig.addFilter("byPlatform", function (posts, slug) {
     return (posts || []).filter((p) => p.data.platformSlug === slug);
   });
