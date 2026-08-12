@@ -46,6 +46,19 @@ function loadHamarosan() {
   return data;
 }
 
+// A cikkek címe stílusos ("Játék neve - kritika/vélemény szövege"), nem
+// tiszta játéknév - ezért a gondolatjel/kötőjel előtti részt vesszük ki
+// belőle, az a tényleges játéknév. Ha van explicit rawgQuery mező, azt is
+// hozzávesszük. A cél, hogy csak PONTOS névegyezést nézzünk a duplikátum-
+// szűrésnél (részstring-egyezés téves lenne: pl. egy "Super Mario" nevű
+// rawgQuery miatt egy vadonatúj "Super Mario Odyssey 2" is tévesen
+// duplikátumnak tűnne, miközben egy másik, hasonló előtagú, de valójában más
+// játékot jelentene).
+function extractGameNameFromArticleTitle(title) {
+  const parts = String(title || "").split(/\s[-–—]\s/);
+  return parts[0];
+}
+
 function loadReviewedTitles() {
   const titles = new Set();
   if (!fs.existsSync(TESZTEK_DIR)) return titles;
@@ -56,7 +69,9 @@ function loadReviewedTitles() {
       const raw = fs.readFileSync(path.join(TESZTEK_DIR, f), "utf8");
       const titleMatch = raw.match(/^title:\s*"?(.*?)"?\s*$/m);
       const rawgMatch = raw.match(/^rawgQuery:\s*"?(.*?)"?\s*$/m);
-      if (titleMatch) titles.add(normalizeTitle(titleMatch[1]));
+      if (titleMatch) {
+        titles.add(normalizeTitle(extractGameNameFromArticleTitle(titleMatch[1])));
+      }
       if (rawgMatch) titles.add(normalizeTitle(rawgMatch[1]));
     });
 
@@ -116,22 +131,19 @@ async function main() {
   );
   const removedCount = beforeCount - hamarosan.items.length;
 
-  // A cikkek címe stílusos ("Játék neve - kritika/vélemény szöveg"), nem
-  // tiszta játéknév, ezért nem elég a pontos egyezés: azt nézzük, hogy a
-  // RAWG-tól kapott játéknév részstringként szerepel-e egy már ismert
-  // címben (vagy fordítva), így a "Kirby Super Star" a "Kirby Super Star -
-  // retro gyöngyszem..." cikkcímmel is duplikátumnak számít.
-  const knownTitles = [
-    ...hamarosan.items.map((i) => normalizeTitle(i.title)),
-    ...reviewedTitles,
-  ].filter(Boolean);
+  // Szándékosan PONTOS egyezést nézünk (nem részstringet): egy közös
+  // előtagú, de valójában más játék (pl. "Super Mario Odyssey 2" egy már
+  // ismert "Super Mario Kart" mellett) így nem esik ki tévesen. A
+  // hamarosan.json title mezői már eleve tiszta játéknevek, a cikkekből
+  // pedig a extractGameNameFromArticleTitle már kiszedte a tényleges nevet.
+  const knownTitles = new Set(
+    [...hamarosan.items.map((i) => normalizeTitle(i.title)), ...reviewedTitles].filter(Boolean)
+  );
 
   function isKnownTitle(gameName) {
     const norm = normalizeTitle(gameName);
     if (!norm) return false;
-    return knownTitles.some(
-      (known) => known === norm || known.includes(norm) || norm.includes(known)
-    );
+    return knownTitles.has(norm);
   }
 
   // 2. Új, közelgő Switch-megjelenések lekérése és felvétele.
@@ -144,7 +156,7 @@ async function main() {
       if (addedCount >= MAX_NEW_ITEMS_PER_RUN) break;
 
       if (isKnownTitle(game.name)) continue;
-      knownTitles.push(normalizeTitle(game.name));
+      knownTitles.add(normalizeTitle(game.name));
 
       hamarosan.items.push({
         title: game.name,
