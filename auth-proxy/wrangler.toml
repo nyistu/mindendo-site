@@ -6,5 +6,5 @@ compatibility_date = "2024-04-19"
 # zárolási állapot). Namespace létrehozása: `npx wrangler kv namespace create EDITORS_KV`
 # - az onnan kapott id-t írd ide.
 kv_namespaces = [
-  { binding = "EDITORS_KV", id = "ide-jon-a-kv-namespace-id" }
+  { binding = "EDITORS_KV", id = "52dd9f5ac7f945ae839eb4d94d45ebef" }
 ]

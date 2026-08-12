@@ -1,8 +1,8 @@
 backend:
   name: github
-  repo: ide-jon-a-github-felhasznalonev/mindendo-site
+  repo: nyistu/mindendo-site
   branch: main
-  base_url: https://ide-jon-a-worker-url.workers.dev
+  base_url: https://mindendo-decap-auth.mindendo.workers.dev
   # base_url = az auth-proxy/ mappában lévő Cloudflare Worker deploy után kapott URL
   # Ez NEM valódi GitHub OAuth - a szerkesztők saját, itt regisztrált
   # felhasználónévvel és jelszóval lépnek be, a Worker egy közös GitHub
