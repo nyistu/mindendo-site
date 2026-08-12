@@ -21,7 +21,7 @@ on:
     - cron: "0 3 1,15 * *"
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -44,6 +44,25 @@ jobs:
 
       - name: Függőségek telepítése
         run: npm ci
+
+      - name: Közelgő Switch-megjelenések keresése (csak ütemezve/manuálisan)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node scripts/fetch-upcoming-releases.js
+        env:
+          RAWG_API_KEY: ${{ secrets.RAWG_API_KEY }}
+
+      - name: "hamarosan.json változás commitolása, ha volt új/lejárt tétel"
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          if ! git diff --quiet -- _data/hamarosan.json; then
+            git config user.name "mindendo-bot"
+            git config user.email "actions@github.com"
+            git add _data/hamarosan.json
+            git commit -m "Hamarosan érkezik lista automatikus frissítése"
+            git push
+          else
+            echo "Nincs változás a hamarosan.json-ban."
+          fi
 
       - name: Eleventy build
         run: npm run build
