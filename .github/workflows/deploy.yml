@@ -10,6 +10,15 @@ on:
   push:
     branches: ["main"]
   workflow_dispatch: {}
+  schedule:
+    # Nagyjából kéthetente (a hónap 1. és 15. napján, 03:00 UTC-kor) újraépíti
+    # és újra publikálja az oldalt akkor is, ha közben senki nem szerkesztett
+    # semmit. Ez kell ahhoz, hogy a "hamarosan érkezik" doboz automatikusan
+    # eltüntesse azokat a tételeket, amiknek időközben elmúlt a megjelenési
+    # dátuma (ez a szűrés build-időben fut le, statikus oldalnál push/ütemezés
+    # nélkül nem frissülne magától). A cron nem támogat pontosan "14 naponta"
+    # ütemezést, ezért ez a szokásos "kéthavonta kétszer" közelítés.
+    - cron: "0 3 1,15 * *"
 
 permissions:
   contents: read
