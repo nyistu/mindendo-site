@@ -3,6 +3,7 @@ layout: base.njk
 title: "Főoldal"
 permalink: /
 ---
+{% from "post-card.njk" import postCard %}
 {% set sorted = collections.teszt | reverse %}
 {% set featured = sorted[0] %}
 
@@ -32,14 +33,7 @@ permalink: /
 <div class="card-grid">
   {% for post in sorted %}
     {% if not loop.first %}
-    <a href="{{ post.url }}" class="post-card">
-      <img src="{{ post.data.cover | coverOrDefault }}" alt="{{ post.data.title }}">
-      <div class="card-body">
-        <span class="platform-badge">{{ post.data.platform }}</span>
-        <h3>{{ post.data.title }}</h3>
-        <div class="meta">{{ post.data.date.toDateString() }} · {{ post.data.rating }}/5 ★</div>
-      </div>
-    </a>
+    {{ postCard(post) }}
     {% endif %}
   {% endfor %}
 </div>

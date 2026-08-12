@@ -1,0 +1,10 @@
+# Alap biztonsági HTTP fejlécek a Mindendo weboldalhoz.
+# Ez a fájl Cloudflare Pages-en működik automatikusan (a "_headers" formátumát
+# ismeri fel). GitHub Pages-en sajnos NEM támogatott az egyéni fejléc
+# beállítása - ha oda kerül a végleges hosztolás, ezek a védelmek onnan
+# hiányozni fognak, ezt érdemes szem előtt tartani.
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), camera=(), microphone=()

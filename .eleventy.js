@@ -5,6 +5,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("css");
   eleventyConfig.addPassthroughCopy("img");
   eleventyConfig.addPassthroughCopy("admin");
+  eleventyConfig.addPassthroughCopy("_headers");
 
   eleventyConfig.addFilter("prosConsList", function (arr) {
     return arr || [];
@@ -27,6 +28,54 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("postUrls", function (posts) {
     return (posts || []).map((p) => p.url);
+  });
+
+  // Rangsorolás pontszám szerint (csökkenő), holtverseny esetén a frissebb dátum nyer.
+  // A "Legjobbak" listákhoz.
+  eleventyConfig.addFilter("byRatingDesc", function (posts) {
+    return (posts || [])
+      .slice()
+      .sort((a, b) => {
+        const ratingDiff = (b.data.rating || 0) - (a.data.rating || 0);
+        if (ratingDiff !== 0) return ratingDiff;
+        return new Date(b.data.date) - new Date(a.data.date);
+      });
+  });
+
+  const HUN_MONTHS = [
+    "január", "február", "március", "április", "május", "június",
+    "július", "augusztus", "szeptember", "október", "november", "december",
+  ];
+
+  // Archívum: tesztek csoportosítása év > hónap szerint, csökkenő időrendben.
+  eleventyConfig.addFilter("groupByYearMonth", function (posts) {
+    const sorted = (posts || [])
+      .slice()
+      .sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
+
+    const years = new Map();
+    sorted.forEach((post) => {
+      const d = new Date(post.data.date);
+      const year = d.getFullYear();
+      const month = d.getMonth();
+      if (!years.has(year)) years.set(year, new Map());
+      const months = years.get(year);
+      if (!months.has(month)) months.set(month, []);
+      months.get(month).push(post);
+    });
+
+    return Array.from(years.entries())
+      .sort((a, b) => b[0] - a[0])
+      .map(([year, months]) => ({
+        year,
+        months: Array.from(months.entries())
+          .sort((a, b) => b[0] - a[0])
+          .map(([month, monthPosts]) => ({
+            month,
+            monthLabel: HUN_MONTHS[month],
+            posts: monthPosts,
+          })),
+      }));
   });
 
   // RAWG.io hivatalos, ingyenes API-ja (nem scraper) - átlagos játékidő + Metacritic.

@@ -19,7 +19,7 @@ cons:
 date: 2026-07-18
 tags:
   - teszt
-verdict: Ha valaki kihagyta megjelenéskor, most van itt az idő pótolni — a
+verdict: Ha valaki kihagyta megjelenéskor, most van itt az idő pótolni - a
   Mindendo szerint az egyik legszebb rejtett gyöngyszem a Switch könyvtárában.
 ---
 Az Eastward egy olyan játék, amiről ritkán esik szó, pedig a Switch egyik legigényesebben megrajzolt indie címe. Ebben a tesztben megnézzük, miért éri meg most, évekkel a megjelenés után is felfedezni.

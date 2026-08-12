@@ -1,6 +1,6 @@
 ---
 title: Emergency! Disaster Rescue Squad
-author: Mindendo szerkesztőség
+author: Nyitrai István
 platform: Nintendo DS
 platformSlug: nds
 cover: /img/uploads/emergency-disaster-rescue-squad.jpg

@@ -17,7 +17,7 @@ pros:
 cons:
   - "Ma már nehéz eredetiben beszerezni"
   - "A csúcspontja rövid, gyorsan végigvihető"
-verdict: "Az egyik legjobban öregedő 16-bites cím — ha csak emulátoron vagy gyűjteményben van rá módod, mindenképp adj neki esélyt."
+verdict: "Az egyik legjobban öregedő 16-bites cím - ha csak emulátoron vagy gyűjteményben van rá módod, mindenképp adj neki esélyt."
 ---
 
 Sok retro rajongó elmegy mellette, pedig a Kirby Super Star a maga korában szinte forradalmi volt a felépítésével.

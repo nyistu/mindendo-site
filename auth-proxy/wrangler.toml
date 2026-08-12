@@ -1,0 +1,10 @@
+name = "mindendo-decap-auth"
+main = "src/index.js"
+compatibility_date = "2024-04-19"
+
+# A "editor:<felhasznalonev>" kulcsú rekordokat tárolja (jelszó-hash, szerep,
+# zárolási állapot). Namespace létrehozása: `npx wrangler kv namespace create EDITORS_KV`
+# - az onnan kapott id-t írd ide.
+kv_namespaces = [
+  { binding = "EDITORS_KV", id = "ide-jon-a-kv-namespace-id" }
+]

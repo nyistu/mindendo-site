@@ -1,0 +1,64 @@
+name: Build és publikálás GitHub Pages-re
+
+# Minden main branch-re történő push után újra lefordítja az Eleventy
+# oldalt, és publikálja a dist/ mappa tartalmát GitHub Pages-re. A repó
+# Settings > Pages > Source alatt "GitHub Actions"-re kell állítani, hogy ez
+# a workflow legyen a publikálás forrása (ld. auth-proxy melletti fő
+# README/útmutató a pontos lépésekhez).
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node.js beállítása
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Függőségek telepítése
+        run: npm ci
+
+      - name: Eleventy build
+        run: npm run build
+        env:
+          # Ha a build-időben szeretnéd élesben is használni a RAWG API-t,
+          # állítsd be a RAWG_API_KEY repó secretet (Settings > Secrets and
+          # variables > Actions), különben a badge csendben kimarad.
+          RAWG_API_KEY: ${{ secrets.RAWG_API_KEY }}
+
+      - name: Pages előkészítése
+        uses: actions/configure-pages@v5
+
+      - name: dist/ feltöltése Pages artifactként
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "dist"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publikálás GitHub Pages-re
+        id: deployment
+        uses: actions/deploy-pages@v4

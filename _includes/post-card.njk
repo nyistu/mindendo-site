@@ -1,0 +1,31 @@
+{#
+  Egy teszt-kártya (kép + platform-jelvény + cím + meta sor) újrafelhasználható
+  Nunjucks makrója. Korábban ez a jelölés 6 helyen volt szó szerint
+  másolva (index, tesztek, platform, legjobbak x2, archívum) - ez a fájl
+  szünteti meg azt a duplikációt.
+
+  Használat:
+    {% from "post-card.njk" import postCard %}
+    {{ postCard(post) }}                          -> dátum + csillag
+    {{ postCard(post, { showDate: false }) }}      -> csak csillag (pl. Legjobbak)
+    {{ postCard(post, { rank: loop.index }) }}     -> sorszám-jelvénnyel, dátum nélkül
+
+  A kereses.njk-ban ugyanez a jelölés kliens-oldali JS-ből, futásidőben épül
+  fel egy JSON indexből - azt szándékosan NEM ez a makró generálja, mert ott
+  nincs build-időben elérhető Nunjucks kontextus.
+#}
+{% macro postCard(post, opts) %}
+{% set opts = opts or {} %}
+<a href="{{ post.url }}" class="post-card">
+  {% if opts.rank %}<span class="rank-badge">#{{ opts.rank }}</span>{% endif %}
+  <img src="{{ post.data.cover | coverOrDefault }}" alt="{{ post.data.title }}">
+  <div class="card-body">
+    <span class="platform-badge">{{ post.data.platform }}</span>
+    <h3>{{ post.data.title }}</h3>
+    <div class="meta">
+      {%- if opts.showDate != false %}{{ post.data.date.toDateString() }} · {% endif -%}
+      {{ post.data.rating }}/5 ★
+    </div>
+  </div>
+</a>
+{% endmacro %}

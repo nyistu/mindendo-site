@@ -245,11 +245,25 @@ footer.site-footer {
   gap: 1.2rem;
 }
 .post-card {
+  position: relative;
   background: var(--bg-elev);
   border: 1px solid var(--border);
   border-radius: 12px;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.rank-badge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 2;
+  background: var(--yellow);
+  color: var(--bg);
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
 }
 .post-card:hover {
   transform: translateY(-4px);
@@ -325,6 +339,36 @@ footer.site-footer {
   border-top: 1px dashed var(--border);
   font-style: italic;
 }
+
+.scoring-link {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-decoration: underline;
+}
+.scoring-link:hover { color: var(--yellow); }
+
+/* ---- Archívum ---- */
+.archive-month {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin: 1.2rem 0 0.8rem;
+}
+
+/* ---- Keresés ---- */
+.search-input {
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 1rem;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  outline: none;
+}
+.search-input:focus { border-color: var(--red); }
 
 @media (max-width: 700px) {
   .hero { grid-template-columns: 1fr; }

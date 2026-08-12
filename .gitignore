@@ -1,6 +1,8 @@
 node_modules
 dist
+_site
 .env
 .cache
-oauth-proxy/node_modules
+auth-proxy/node_modules
 .wrangler
+.DS_Store

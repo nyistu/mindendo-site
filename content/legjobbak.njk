@@ -1,0 +1,22 @@
+---
+layout: base.njk
+title: "Legjobbak"
+permalink: /legjobbak/
+---
+{% from "post-card.njk" import postCard %}
+<h1>Legjobbak</h1>
+<p style="color: var(--muted); margin-top: -1rem;">A tesztjeink pontszáma alapján rangsorolva. Nézd meg platformonként is!</p>
+
+<div class="filter-bar">
+  <a href="/legjobbak/" class="active">Összesített</a>
+  {% for p in platforms %}
+  <a href="/legjobbak/{{ p.slug }}/">{{ p.label }}</a>
+  {% endfor %}
+</div>
+
+{% set top = collections.teszt | byRatingDesc %}
+<div class="card-grid">
+  {% for post in top %}
+  {{ postCard(post, { rank: loop.index, showDate: false }) }}
+  {% endfor %}
+</div>

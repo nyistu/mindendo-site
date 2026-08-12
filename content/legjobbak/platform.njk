@@ -1,0 +1,30 @@
+---
+pagination:
+  data: platforms
+  size: 1
+  alias: platform
+permalink: "/legjobbak/{{ platform.slug }}/"
+layout: base.njk
+eleventyComputed:
+  title: "Legjobb {{ platform.label }} játékok"
+---
+{% from "post-card.njk" import postCard %}
+<h1>Legjobb {{ platform.label }} játékok</h1>
+
+<div class="filter-bar">
+  <a href="/legjobbak/">Összesített</a>
+  {% for p in platforms %}
+  <a href="/legjobbak/{{ p.slug }}/" class="{% if p.slug == platform.slug %}active{% endif %}">{{ p.label }}</a>
+  {% endfor %}
+</div>
+
+{% set matches = collections.teszt | byPlatform(platform.slug) | byRatingDesc %}
+{% if matches.length %}
+<div class="card-grid">
+  {% for post in matches %}
+  {{ postCard(post, { rank: loop.index, showDate: false }) }}
+  {% endfor %}
+</div>
+{% else %}
+<p style="color: var(--muted);">Erre a platformra még nincs teszt - hamarosan pótoljuk.</p>
+{% endif %}

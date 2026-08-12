@@ -1,0 +1,24 @@
+---
+layout: base.njk
+title: "Archívum"
+permalink: /archivum/
+---
+{% from "post-card.njk" import postCard %}
+<h1>Archívum</h1>
+
+{% set grouped = collections.teszt | groupByYearMonth %}
+{% if grouped.length %}
+  {% for yearGroup in grouped %}
+    <h2 class="section-heading">{{ yearGroup.year }}</h2>
+    {% for monthGroup in yearGroup.months %}
+      <h3 class="archive-month">{{ monthGroup.monthLabel }}</h3>
+      <div class="card-grid">
+        {% for post in monthGroup.posts %}
+        {{ postCard(post) }}
+        {% endfor %}
+      </div>
+    {% endfor %}
+  {% endfor %}
+{% else %}
+<p style="color: var(--muted);">Még nincs teszt az archívumban.</p>
+{% endif %}

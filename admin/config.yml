@@ -3,8 +3,10 @@ backend:
   repo: ide-jon-a-github-felhasznalonev/mindendo-site
   branch: main
   base_url: https://ide-jon-a-worker-url.workers.dev
-  # base_url = az oauth-proxy/ mappában lévő Cloudflare Worker deploy után kapott URL
-  # (részletek: oauth-proxy/README.md)
+  # base_url = az auth-proxy/ mappában lévő Cloudflare Worker deploy után kapott URL
+  # Ez NEM valódi GitHub OAuth - a szerkesztők saját, itt regisztrált
+  # felhasználónévvel és jelszóval lépnek be, a Worker egy közös GitHub
+  # tokent ad vissza sikeres belépés után. (részletek: auth-proxy/README.md)
 
 local_backend: true
 # ^ localhoston futtatva (npm run start) ez felülbírálja a fenti github backendet,
@@ -77,7 +79,7 @@ collections:
                 widget: "date"
                 format: "YYYY-MM-DD"
                 hint: "Ha csak évszak/negyedév ismert, válaszd az adott időszak utolsó napját"
-              - { label: "Megjelenítendő szöveg", name: "expectedLabel", widget: "string", hint: "pl. 2026 tél, vagy TBA — ez jelenik meg a dobozban" }
+              - { label: "Megjelenítendő szöveg", name: "expectedLabel", widget: "string", hint: "pl. 2026 tél, vagy TBA - ez jelenik meg a dobozban" }
               - { label: "YouTube trailer azonosító", name: "trailerId", widget: "string", required: false, hint: "Csak a videó ID-je, pl. a youtube.com/watch?v=EZ_A_RESZ végéből" }
               - { label: "Megjegyzés", name: "note", widget: "string", required: false }
 

@@ -17,7 +17,7 @@ pros:
 cons:
   - "A kiegészítők ára még mindig magas"
   - "Kevés az igazán exkluzív launch-cím"
-verdict: "Ha most vágnál bele, érdemes megvárni pár hónapot a szélesebb kínálatig — de a hardver alapja stabil."
+verdict: "Ha most vágnál bele, érdemes megvárni pár hónapot a szélesebb kínálatig - de a hardver alapja stabil."
 ---
 
 Az első hetek tapasztalatai alapján megnéztük, mely kiegészítők és funkciók érik meg valóban a pénzüket a Switch 2 körül.

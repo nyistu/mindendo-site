@@ -1,0 +1,57 @@
+---
+layout: base.njk
+title: "Keresés"
+permalink: /kereses/
+---
+<h1>Keresés</h1>
+
+<input type="search" id="search-input" class="search-input" placeholder="Játék vagy platform neve..." autofocus>
+<div id="search-status" style="color: var(--muted); margin: 1rem 0;"></div>
+<div id="search-results" class="card-grid"></div>
+
+<script>
+(function () {
+  var input = document.getElementById('search-input');
+  var status = document.getElementById('search-status');
+  var results = document.getElementById('search-results');
+  var data = [];
+
+  function esc(s) {
+    return String(s || '').replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  fetch('/search-index.json')
+    .then(function (r) { return r.json(); })
+    .then(function (d) { data = d; })
+    .catch(function () { status.textContent = 'A keresés jelenleg nem elérhető.'; });
+
+  input.addEventListener('input', function () {
+    var q = input.value.trim().toLowerCase();
+    results.innerHTML = '';
+    if (!q) { status.textContent = ''; return; }
+
+    var matches = data.filter(function (item) {
+      return item.title.toLowerCase().indexOf(q) !== -1 ||
+             item.platform.toLowerCase().indexOf(q) !== -1;
+    });
+
+    status.textContent = matches.length + ' találat';
+
+    matches.forEach(function (item) {
+      var a = document.createElement('a');
+      a.href = item.url;
+      a.className = 'post-card';
+      a.innerHTML =
+        '<img src="' + esc(item.cover) + '" alt="' + esc(item.title) + '">' +
+        '<div class="card-body">' +
+        '<span class="platform-badge">' + esc(item.platform) + '</span>' +
+        '<h3>' + esc(item.title) + '</h3>' +
+        '<div class="meta">' + esc(item.rating) + '/5 ★</div>' +
+        '</div>';
+      results.appendChild(a);
+    });
+  });
+})();
+</script>

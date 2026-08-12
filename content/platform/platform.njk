@@ -8,6 +8,7 @@ layout: base.njk
 eleventyComputed:
   title: "{{ platform.label }} tesztek"
 ---
+{% from "post-card.njk" import postCard %}
 <h1>{{ platform.label }} tesztek</h1>
 
 <div class="filter-bar">
@@ -21,16 +22,9 @@ eleventyComputed:
 {% if matches.length %}
 <div class="card-grid">
   {% for post in matches %}
-  <a href="{{ post.url }}" class="post-card">
-    <img src="{{ post.data.cover | coverOrDefault }}" alt="{{ post.data.title }}">
-    <div class="card-body">
-      <span class="platform-badge">{{ post.data.platform }}</span>
-      <h3>{{ post.data.title }}</h3>
-      <div class="meta">{{ post.data.date.toDateString() }} · {{ post.data.rating }}/5 ★</div>
-    </div>
-  </a>
+  {{ postCard(post) }}
   {% endfor %}
 </div>
 {% else %}
-<p style="color: var(--muted);">Erre a platformra még nincs teszt — hamarosan pótoljuk.</p>
+<p style="color: var(--muted);">Erre a platformra még nincs teszt - hamarosan pótoljuk.</p>
 {% endif %}

@@ -3,4 +3,4 @@ _site
 dist
 admin
 .cache
-oauth-proxy
+auth-proxy
