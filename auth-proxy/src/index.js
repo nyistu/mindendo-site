@@ -53,6 +53,14 @@ const SESSION_MAX_AGE_MS = 1000 * 60 * 60 * 8; // 8 óra
 const MIN_PASSWORD_LENGTH = 8;
 const PBKDF2_ITERATIONS = 100000;
 
+// A "Szinkronizálás most" gombhoz: melyik repó/workflow indítandó el a
+// GitHub Actions "workflow_dispatch" API-jával. A GITHUB_PAT-nak ehhez
+// "Actions: write" jogosultsággal is rendelkeznie kell (a "Contents:
+// Read and write" önmagában nem elég a workflow indításához).
+const GITHUB_REPO = "nyistu/mindendo-site";
+const WORKFLOW_FILE = "deploy.yml";
+const WORKFLOW_REF = "main";
+
 const SECURITY_HEADERS = {
   "X-Content-Type-Options": "nosniff",
   "X-Frame-Options": "DENY",
@@ -417,11 +425,61 @@ async function manageDashboardHtml(env, notice, csrfToken) {
     "<input type=\"hidden\" name=\"csrf\" value=\"" + escapeHtml(csrfToken || "") + "\">" +
     "<button type=\"submit\">Hozzáadás</button>" +
     "</form>" +
+    "<h2>Hamarosan érkezik lista</h2>" +
+    "<p style=\"font-size:.85rem;color:#b8aed6;max-width:480px;\">Kéthetente magától is lefut, de itt bármikor manuálisan is elindíthatod: friss Switch-megjelenéseket keres a RAWG.io-n, és eltünteti a lejárt dátumú tételeket. Kb. 1-2 percbe telik, amíg lefut és frissül az élő oldal.</p>" +
+    "<form method=\"POST\" action=\"/manage/sync-hamarosan\">" +
+    "<input type=\"hidden\" name=\"csrf\" value=\"" + escapeHtml(csrfToken || "") + "\">" +
+    "<button type=\"submit\">Szinkronizálás most</button>" +
+    "</form>" +
     "<p style=\"margin-top:2rem;\"><form method=\"POST\" action=\"/manage/logout\">" +
     "<input type=\"hidden\" name=\"csrf\" value=\"" + escapeHtml(csrfToken || "") + "\">" +
     "<button type=\"submit\" style=\"background:transparent;border:1px solid #3a2266;color:#b8aed6;\">Kijelentkezés</button></form></p>" +
     "</body></html>"
   );
+}
+
+// ---------- GitHub Actions "workflow_dispatch" indítása ----------
+
+async function triggerWorkflowDispatch(env) {
+  if (!env.GITHUB_PAT) {
+    return { ok: false, error: "Hiányzó GITHUB_PAT." };
+  }
+
+  const res = await fetch(
+    "https://api.github.com/repos/" + GITHUB_REPO + "/actions/workflows/" + WORKFLOW_FILE + "/dispatches",
+    {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + env.GITHUB_PAT,
+        Accept: "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "User-Agent": "mindendo-decap-auth-worker",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ref: WORKFLOW_REF }),
+    }
+  );
+
+  if (res.status === 204) {
+    return { ok: true };
+  }
+
+  let detail = "";
+  try {
+    const body = await res.json();
+    detail = body && body.message ? body.message : "";
+  } catch (e) {
+    // nincs JSON body, hagyjuk üresen
+  }
+
+  return {
+    ok: false,
+    error:
+      "GitHub API hiba (" + res.status + ")" + (detail ? ": " + detail : "") +
+      (res.status === 403 || res.status === 404
+        ? " - ellenőrizd, hogy a GITHUB_PAT-nak van-e 'Actions: write' jogosultsága."
+        : ""),
+  };
 }
 
 // ---------- fő request handler ----------
@@ -608,6 +666,33 @@ export default {
 
       return redirectResponse(
         "/manage?notice=" + encodeURIComponent("Szerkesztő felvéve: " + username)
+      );
+    }
+
+    // --- Admin felület: "hamarosan érkezik" lista manuális szinkronizálása ---
+    if (url.pathname === "/manage/sync-hamarosan" && request.method === "POST") {
+      const session = await getAdminSession(request, env);
+      if (!session) return htmlResponse(manageLoginHtml("", ""), 401);
+
+      const form = await request.formData();
+      if (!checkManageCsrf(request, form)) {
+        return redirectResponse(
+          "/manage?err=" + encodeURIComponent("Lejárt űrlap - próbáld újra.")
+        );
+      }
+
+      const result = await triggerWorkflowDispatch(env);
+      if (!result.ok) {
+        return redirectResponse("/manage?err=" + encodeURIComponent(result.error));
+      }
+
+      return redirectResponse(
+        "/manage?notice=" +
+          encodeURIComponent(
+            "Szinkronizálás elindítva - kb. 1-2 percen belül frissül az élő oldal. Állapot: github.com/" +
+              GITHUB_REPO +
+              "/actions"
+          )
       );
     }
 
