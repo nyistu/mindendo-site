@@ -33,6 +33,7 @@ header.site-header {
 }
 
 header.site-header img { height: 44px; }
+header.site-header .site-logo-link { display: flex; align-items: center; line-height: 0; }
 
 nav.site-nav a {
   margin-right: 1.2rem;
