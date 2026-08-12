@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: Emergency! Disaster Rescue Squad
 author: Nyitrai István
 platform: Nintendo DS
