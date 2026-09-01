@@ -1,14 +1,6 @@
 {
   "items": [
     {
-      "title": "Elden Ring: Tarnished Edition",
-      "platform": "Nintendo Switch 2",
-      "releaseDate": "2026-08-28",
-      "expectedLabel": "2026. augusztus 28.",
-      "trailerId": "EO35GLpe7to",
-      "note": "Az alapjáték + Shadow of the Erdtree, Switch 2-exkluzív extrákkal."
-    },
-    {
       "title": "Fire Emblem: Fortune's Weave",
       "platform": "Nintendo Switch 2",
       "releaseDate": "2026-09-17",
@@ -39,6 +31,38 @@
       "expectedLabel": "2026 vége (bizonytalan)",
       "trailerId": "d0ij2uQ87nc",
       "note": "FromSoftware Switch 2-exkluzív játéka, a dátum még csak becslés."
+    },
+    {
+      "title": "Castlevania: Belmont's Curse",
+      "platform": "Nintendo Switch",
+      "releaseDate": "2026-10-15",
+      "expectedLabel": "2026-10-15",
+      "trailerId": "",
+      "note": "Automatikusan felvéve a RAWG.io alapján - ellenőrizd a platformot (lehet Switch 2-exkluzív is), és ha van, tölts fel trailert."
+    },
+    {
+      "title": "Trine 6: Together in Time",
+      "platform": "Nintendo Switch",
+      "releaseDate": "2026-09-17",
+      "expectedLabel": "2026-09-17",
+      "trailerId": "",
+      "note": "Automatikusan felvéve a RAWG.io alapján - ellenőrizd a platformot (lehet Switch 2-exkluzív is), és ha van, tölts fel trailert."
+    },
+    {
+      "title": "Final Fantasy Resonance",
+      "platform": "Nintendo Switch",
+      "releaseDate": "2026-10-22",
+      "expectedLabel": "2026-10-22",
+      "trailerId": "",
+      "note": "Automatikusan felvéve a RAWG.io alapján - ellenőrizd a platformot (lehet Switch 2-exkluzív is), és ha van, tölts fel trailert."
+    },
+    {
+      "title": "Trails in the Sky 2nd Chapter",
+      "platform": "Nintendo Switch",
+      "releaseDate": "2026-09-17",
+      "expectedLabel": "2026-09-17",
+      "trailerId": "",
+      "note": "Automatikusan felvéve a RAWG.io alapján - ellenőrizd a platformot (lehet Switch 2-exkluzív is), és ha van, tölts fel trailert."
     }
   ]
 }
