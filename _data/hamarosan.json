@@ -63,6 +63,22 @@
       "expectedLabel": "2026-09-17",
       "trailerId": "",
       "note": "Automatikusan felvéve a RAWG.io alapján - ellenőrizd a platformot (lehet Switch 2-exkluzív is), és ha van, tölts fel trailert."
+    },
+    {
+      "title": "The Legend of Zelda: Ocarina of Time",
+      "platform": "Nintendo Switch",
+      "releaseDate": "2026-11-05",
+      "expectedLabel": "2026-11-05",
+      "trailerId": "",
+      "note": "Automatikusan felvéve a RAWG.io alapján - ellenőrizd a platformot (lehet Switch 2-exkluzív is), és ha van, tölts fel trailert."
+    },
+    {
+      "title": "Metroid Ravenous",
+      "platform": "Nintendo Switch",
+      "releaseDate": "2027-01-28",
+      "expectedLabel": "2027-01-28",
+      "trailerId": "",
+      "note": "Automatikusan felvéve a RAWG.io alapján - ellenőrizd a platformot (lehet Switch 2-exkluzív is), és ha van, tölts fel trailert."
     }
   ]
 }
