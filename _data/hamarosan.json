@@ -17,14 +17,6 @@
       "note": "FromSoftware Switch 2-exkluzív játéka, a dátum még csak becslés."
     },
     {
-      "title": "Castlevania: Belmont's Curse",
-      "platform": "Nintendo Switch",
-      "releaseDate": "2026-10-15",
-      "expectedLabel": "2026-10-15",
-      "trailerId": "",
-      "note": "Automatikusan felvéve a RAWG.io alapján - ellenőrizd a platformot (lehet Switch 2-exkluzív is), és ha van, tölts fel trailert."
-    },
-    {
       "title": "Final Fantasy Resonance",
       "platform": "Nintendo Switch",
       "releaseDate": "2026-10-22",
@@ -49,18 +41,34 @@
       "note": "Automatikusan felvéve a RAWG.io alapján - ellenőrizd a platformot (lehet Switch 2-exkluzív is), és ha van, tölts fel trailert."
     },
     {
-      "title": "Clive Barker's Hellraiser: Revival",
-      "platform": "Nintendo Switch",
-      "releaseDate": "2026-10-08",
-      "expectedLabel": "2026-10-08",
-      "trailerId": "",
-      "note": "Automatikusan felvéve a RAWG.io alapján - ellenőrizd a platformot (lehet Switch 2-exkluzív is), és ha van, tölts fel trailert."
-    },
-    {
       "title": "Trine 6: Together in Time",
       "platform": "Nintendo Switch",
       "releaseDate": "2027-03-04",
       "expectedLabel": "2027-03-04",
+      "trailerId": "",
+      "note": "Automatikusan felvéve a RAWG.io alapján - ellenőrizd a platformot (lehet Switch 2-exkluzív is), és ha van, tölts fel trailert."
+    },
+    {
+      "title": "Castlevania: Belmont's Curse",
+      "platform": "Nintendo Switch",
+      "releaseDate": "2026-10-15",
+      "expectedLabel": "2026-10-15",
+      "trailerId": "",
+      "note": "Automatikusan felvéve a RAWG.io alapján - ellenőrizd a platformot (lehet Switch 2-exkluzív is), és ha van, tölts fel trailert."
+    },
+    {
+      "title": "Final Fantasy VII: Revelation",
+      "platform": "Nintendo Switch",
+      "releaseDate": "2027-04-08",
+      "expectedLabel": "2027-04-08",
+      "trailerId": "",
+      "note": "Automatikusan felvéve a RAWG.io alapján - ellenőrizd a platformot (lehet Switch 2-exkluzív is), és ha van, tölts fel trailert."
+    },
+    {
+      "title": "Disney/Pixar Toy Story 3 Complete Edition",
+      "platform": "Nintendo Switch",
+      "releaseDate": "2026-10-15",
+      "expectedLabel": "2026-10-15",
       "trailerId": "",
       "note": "Automatikusan felvéve a RAWG.io alapján - ellenőrizd a platformot (lehet Switch 2-exkluzív is), és ha van, tölts fel trailert."
     }
